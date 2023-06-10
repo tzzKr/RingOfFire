@@ -14,12 +14,6 @@ export class Game {
         }
         shuffleArray(this.deck);
         
-        
-        
-        this.players = [];
-        
-        this.playedCards = [];
-        this.currentPlayer = 0;
     }
 
 }

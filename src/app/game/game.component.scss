@@ -54,3 +54,43 @@
     transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
     right: 25px;
 }
+
+.player{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 300px;
+    position: absolute;
+    gap: 20px;
+}
+
+.playerContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.324);
+    padding: 15px;
+    border-radius: 30px;
+    gap: 10px;
+}
+
+.btnAdd{
+    position: absolute;
+    left: 35px;
+    bottom: 35px;
+    z-index: 2;
+}
+
+.pin-bottom {
+    color: white;
+    position: absolute;
+    bottom: 35px;
+    left: 100px;
+    right: 100px;
+    overflow: hidden;
+    z-index: 1;
+}
