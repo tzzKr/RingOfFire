@@ -14,8 +14,8 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
   game!: Game;
-playerActive: any;
-i: any;
+  playerActive: any;
+  i: any;
 
 
   constructor(public dialog: MatDialog) { }
@@ -39,9 +39,9 @@ i: any;
 
       setTimeout(() => {
         this.pickCardAnimation = false;
-      this.game.playedCards.push(this.currentCard);
+        this.game.playedCards.push(this.currentCard);
 
-        // this.game.currentPlayer = (this.game.currentPlayer + 1) % this.game.players.length;
+        this.game.currentPlayer = (this.game.currentPlayer + 1) % this.game.players.length;
       }, 1500);
     }
   }
@@ -51,7 +51,10 @@ i: any;
 
     dialogRef.afterClosed().subscribe((name: string) => {
       console.log('The dialog was closed by', name);
-      this.game.players.push(name);
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+
+      }
     });
   }
 
