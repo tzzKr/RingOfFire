@@ -23,6 +23,10 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+
+
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import {
   CollectionReference,
   DocumentData,
@@ -63,7 +67,9 @@ import { Observable } from 'rxjs';
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-
+    AppRoutingModule,
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [],
   bootstrap: [AppComponent]
