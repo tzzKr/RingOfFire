@@ -18,7 +18,7 @@ export class GameComponent implements OnInit {
   i: any;
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private gameService: RingoffireService) { }
 
   ngOnInit(): void {
     this.newGame();
