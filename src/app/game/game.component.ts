@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
-
+import { RingoffireService } from '../ringoffire.service';
 
 @Component({
   selector: 'app-game',
