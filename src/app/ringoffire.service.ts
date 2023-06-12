@@ -1,71 +1,40 @@
 import { Injectable } from '@angular/core';
-import {
-  CollectionReference,
-  DocumentData,
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  updateDoc,
-} from '@firebase/firestore';
-import { Firestore, collectionData, docData } from '@angular/fire/firestore';
-
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Game } from 'src/models/game.data.model';
 
-interface Player {
-  name: string;
-   id: string;
-   player: string;
- }
+// export interface Gam {
+//   name: string;
+//   id: string;
+//   player: string;
+// }
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class RingoffireService {
 
-  private gameCollection: CollectionReference<DocumentData>;
+  private dbPath = '/games';
 
+  gameRef: AngularFirestoreCollection<Game>;
 
-  constructor(private readonly firestore: Firestore) { 
-    this.gameCollection = collection(this.firestore, 'games');
-
+  constructor(private db: AngularFirestore) { 
+    this.gameRef = db.collection<Game>(this.dbPath);
   }
 
-  getAll() {
-    return collectionData(this.gameCollection, {
-      idField: 'id',
-    }) as Observable<any>;
+  getAll(): AngularFirestoreCollection<Game> {
+    return this.gameRef;
   }
 
-  get(id: string) {
-    const gameDocumentReference = doc(this.firestore, `games/${id}`);
-    return docData(gameDocumentReference, { idField: 'id' });
+  create(games: Game): any {
+    return this.gameRef.add(games);
   }
 
-  create(game: any) {
-    return addDoc(this.gameCollection, game);
+  update(id: string, data: any): Promise<void> {
+    return this.gameRef.doc(id).update(data);
   }
 
-  update(game: any) {
-    const gameDocumentReference = doc(
-      this.firestore,
-      `games/${game.id}`
-    );
-    return updateDoc(game, { ...game });
+  delete(id: string): Promise<void> {
+    return this.gameRef.doc(id).delete();
   }
-
-
-  delete(id: string) {
-    const gameDocumentReference = doc(this.firestore, `games/${id}`);
-    return deleteDoc(gameDocumentReference);
-  }
-
-  
-  
-  
-
-
-
 }

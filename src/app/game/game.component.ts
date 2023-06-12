@@ -3,6 +3,8 @@ import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
 import { RingoffireService } from '../ringoffire.service';
+import { Observer } from 'rxjs';
+
 
 @Component({
   selector: 'app-game',
@@ -20,8 +22,13 @@ export class GameComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private gameService: RingoffireService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): any {
     this.newGame();
+    this.gameService.getAll().valueChanges().subscribe((games: Game[]) => {
+
+      console.log('object :>> ', games);
+      
+    });
   }
 
   newGame() {
@@ -59,3 +66,5 @@ export class GameComponent implements OnInit {
   }
 
 }
+
+
