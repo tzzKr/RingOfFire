@@ -3,7 +3,6 @@ import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
 import { RingoffireService } from '../ringoffire.service';
-import { Observer } from 'rxjs';
 
 
 @Component({
@@ -16,8 +15,7 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
   game!: Game;
-  playerActive: any;
-  i: any;
+  
 
 
   constructor(public dialog: MatDialog, private gameService: RingoffireService) { }
@@ -44,7 +42,7 @@ export class GameComponent implements OnInit {
     if (!this.pickCardAnimation) {
 
 
-      this.currentCard = this.game.deck.pop()!;
+      this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 
       setTimeout(() => {

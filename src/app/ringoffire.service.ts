@@ -27,7 +27,7 @@ export class RingoffireService {
   }
 
   create(games: Game): any {
-    return this.gameRef.add(games);
+    return this.gameRef.add(games.toJson());
   }
 
   update(id: string, data: any): Promise<void> {
