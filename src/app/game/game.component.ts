@@ -31,7 +31,7 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-    this.gameService.create(this.game).then((docRef: { id: any; }) => {
+    this.gameService.create(this.game.toJson()).then((docRef: { id: any; }) => {
       console.log('Document written with ID: ', docRef.id);
 
     });

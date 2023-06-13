@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { GameData } from 'src/models/game.data.model';
+import { GameData, GameJson } from 'src/models/game.data.model';
 
 
 
@@ -11,20 +11,22 @@ import { GameData } from 'src/models/game.data.model';
 })
 export class RingoffireService {
 
+  
+
   private dbPath = '/games';
 
-  gameRef: AngularFirestoreCollection<GameData>;
+  gameRef: AngularFirestoreCollection<GameJson>;
 
   constructor(private db: AngularFirestore) { 
-    this.gameRef = db.collection<GameData>(this.dbPath);
+    this.gameRef = db.collection<GameJson>(this.dbPath);
   }
 
-  getAll(): AngularFirestoreCollection<GameData> {
+  getAll(): AngularFirestoreCollection<GameJson> {
     return this.gameRef;
   }
 
-  create(games: GameData): any {
-    return this.gameRef.add(games.toJson());
+  create(games: GameJson): any {
+    return this.gameRef.add(games);
   }
 
   update(id: string, data: any): Promise<void> {
