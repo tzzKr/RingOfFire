@@ -4,7 +4,7 @@ export class Game {
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
     public pickCardAnimation = false;
-    public currentCard: string = '';
+    public currentCard: any = '';
 
 
 
