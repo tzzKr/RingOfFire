@@ -33,7 +33,11 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
+    this.gameService.create(this.game).then((docRef: { id: any; }) => {
+      console.log('Document written with ID: ', docRef.id);
+
+    });
+      
   }
 
   takeCard() {
@@ -41,7 +45,6 @@ export class GameComponent implements OnInit {
 
 
       this.currentCard = this.game.deck.pop()!;
-      console.log(this.currentCard);
       this.pickCardAnimation = true;
 
       setTimeout(() => {
@@ -57,7 +60,6 @@ export class GameComponent implements OnInit {
     const dialogRef = this.dialog.open(AddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      console.log('The dialog was closed by', name);
       if (name && name.length > 0) {
         this.game.players.push(name);
 
