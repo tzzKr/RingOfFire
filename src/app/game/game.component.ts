@@ -3,6 +3,8 @@ import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
 import { RingoffireService } from '../ringoffire.service';
+import { ActivatedRoute } from '@angular/router';
+import { GameJson } from 'src/models/game.data.model';
 
 
 @Component({
@@ -12,44 +14,44 @@ import { RingoffireService } from '../ringoffire.service';
 })
 export class GameComponent implements OnInit {
 
-  pickCardAnimation = false;
-  currentCard: string = '';
+
   game!: Game;
-  
+  gameId!: string;
 
 
-  constructor(public dialog: MatDialog, private gameService: RingoffireService) { }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private gameService: RingoffireService) { }
 
   ngOnInit(): any {
     this.newGame();
-    this.gameService.getAll().valueChanges().subscribe((games: Game[]) => {
-
-      console.log('object :>> ', games);
-      
+    this.route.params.subscribe(params => {
+      console.log('ID :>> ', params['id']);
+      this.gameId = params['id'];
+      this.gameService.getAll().doc(this.gameId).valueChanges().subscribe((games: GameJson) => {
+        console.log('Game :>> ', games);
+        this.game.currentCard = games.currentCard;
+        this.game.currentPlayer = games.currentPlayer;
+        this.game.pickCardAnimation = games.pickCardAnimation;
+        this.game.playedCards = games.playedCards;
+        this.game.players = games.players;
+        this.game.stack = games.stack;
+      });
     });
   }
 
   newGame() {
     this.game = new Game();
-    this.gameService.create(this.game.toJson()).then((docRef: { id: any; }) => {
-      console.log('Document written with ID: ', docRef.id);
-
-    });
-      
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
-
-
-      this.currentCard = this.game.stack.pop()!;
-      this.pickCardAnimation = true;
-
+    if (!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop()!;
+      this.game.pickCardAnimation = true;
+      this.gameService.update(this.gameId, this.game.toJson());
       setTimeout(() => {
-        this.pickCardAnimation = false;
-        this.game.playedCards.push(this.currentCard);
-
+        this.game.pickCardAnimation = false;
+        this.game.playedCards.push(this.game.currentCard);
         this.game.currentPlayer = (this.game.currentPlayer + 1) % this.game.players.length;
+        this.gameService.update(this.gameId, this.game.toJson());
       }, 1500);
     }
   }
@@ -60,11 +62,10 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
-
+        this.gameService.update(this.gameId, this.game.toJson());
       }
     });
   }
-
 }
 
 
