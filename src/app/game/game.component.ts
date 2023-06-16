@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
@@ -14,10 +14,11 @@ import { GameJson } from 'src/models/game.data.model';
 })
 export class GameComponent implements OnInit {
 
+  @Input() containerPlayerActive: boolean = false;
 
   game!: Game;
   gameId!: string;
-
+  
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private gameService: RingoffireService) { }
 

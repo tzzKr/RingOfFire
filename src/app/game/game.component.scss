@@ -1,98 +1,158 @@
-.field{
-    height: 100vh;
-    width: 100vw;
-    max-width: 100%;
-    background-image: url("/./assets/img/field.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-       
+.field {
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  background-image: url("../../assets/img/field.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cardStack {
-    position: relative;
-    img{
-        width: 200px;
-        position: absolute;
+  position: relative;
+  img {
+    width: 200px;
+    position: absolute;
+
+    @media (max-width: 700px) {
+      width: 100px;
     }
+  }
 }
 
 .topCard {
-    cursor: pointer;
-    transition: all 0.055s ease-in-out;
+  cursor: pointer;
+  transition: all 0.055s ease-in-out;
 
-    &:hover {
-        transform: translateY(-10px) scale(1.1);
-    }
+  &:hover {
+    transform: translateY(-10px) scale(1.1);
+  }
 }
 
-.pickCard{
-    animation: pickCardAnimation 1.25s ease-in-out;
-    transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
-    
+.pickCard {
+  animation: pickCardAnimation 1.25s ease-in-out;
+  transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
+  @media (max-width: 700px) {
+    transform: scale(1) translateX(115px) translateY(-170px) rotate(-10deg);
+  animation: pickCardAnimationMobile 1.25s ease-in-out;
+
+  }
 }
 
 @keyframes pickCardAnimation {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.7);
+  }
+  50% {
+    transform: scale(1.7);
+  }
+  100% {
+    transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
+    
+  }
+}
+
+@keyframes pickCardAnimationMobile {
     0% {
-        transform: scale(1);
+      transform: scale(1);
     }
     30% {
-        transform: scale(1.7);
+      transform: scale(1.7);
     }
     50% {
-        transform: scale(1.7);
+      transform: scale(1.7);
     }
     100% {
-        transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
+        transform: scale(1) translateX(115px) translateY(-170px) rotate(-10deg);
+
+      
     }
-}
+  }
 
 .playedCard {
-    transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
-    right: 25px;
+  transform: scale(1) translateX(350px) translateY(-350px) rotate(10deg);
+  right: 25px;
+  @media (max-width: 700px) {
+    transform: scale(1) translateX(115px) translateY(-170px) rotate(-10deg);
+  }
 }
 
-.player{
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 300px;
+  position: absolute;
+  gap: 20px;
+  position: absolute;
+  z-index: 1;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 300px;
-    position: absolute;
-    gap: 20px;
+  @media (max-width: 700px) {
+    flex-direction: unset;
+    height: 200px;
+    width: 100vw;
+  }
 }
 
-.playerContainer{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.324);
-    padding: 15px;
-    border-radius: 30px;
-    gap: 10px;
-    width: 100%;
-    max-width: 180px;
+.playerContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.324);
+  padding: 15px;
+  border-radius: 30px;
+  gap: 10px;
+  width: 100%;
+  max-width: 180px;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 }
 
-.btnAdd{
-    position: absolute;
-    left: 35px;
-    bottom: 35px;
-    z-index: 2;
+.btnAdd {
+  position: absolute;
+  left: 35px;
+  bottom: 35px;
+  z-index: 2;
+
+  @media (max-width: 700px) {
+    bottom: 150px;
+  }
 }
 
 .pin-bottom {
-    color: white;
-    position: absolute;
-    bottom: 35px;
-    left: 100px;
-    right: 100px;
-    overflow: hidden;
-    z-index: 1;
+  color: white;
+  position: absolute;
+  bottom: 35px;
+  left: 100px;
+  right: 100px;
+  overflow: hidden;
+  z-index: 1;
+
+  @media (max-width: 700px) {
+    left: 0px;
+    right: 0px;
+    bottom: 0;
+  }
+}
+
+.player-active-container {
+  @media (max-width: 700px) {
+    display: flex !important;
+  }
+}
+
+.player-inactive-container {
+  @media (max-width: 700px) {
+    display: none !important;
+  }
 }

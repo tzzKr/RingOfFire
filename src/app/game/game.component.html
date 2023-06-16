@@ -1,7 +1,8 @@
 <div class="player">
-    <app-player *ngFor="let player of game.players; let i = index" [playerActive]="i == game.currentPlayer" [name]="player"
-        class="playerContainer" ></app-player>
+    <app-player [ngClass]="{'player-active-container': i == game.currentPlayer, 'player-inactive-container': i != game.currentPlayer}" 
+    *ngFor="let player of game.players; let i = index" [playerActive]="i == game.currentPlayer" [name]="player" class="playerContainer" ></app-player>
 </div>
+
 
 <div class="field">
 
