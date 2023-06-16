@@ -18,6 +18,7 @@ export class GameComponent implements OnInit {
 
   game!: Game;
   gameId!: string;
+  gameOver: boolean = false;
   
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private gameService: RingoffireService) { }
@@ -25,10 +26,8 @@ export class GameComponent implements OnInit {
   ngOnInit(): any {
     this.newGame();
     this.route.params.subscribe(params => {
-      console.log('ID :>> ', params['id']);
       this.gameId = params['id'];
       this.gameService.getAll().doc(this.gameId).valueChanges().subscribe((games: GameJson) => {
-        console.log('Game :>> ', games);
         this.game.currentCard = games.currentCard;
         this.game.currentPlayer = games.currentPlayer;
         this.game.pickCardAnimation = games.pickCardAnimation;
@@ -44,7 +43,12 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.game.pickCardAnimation) {
+
+    if (this.game.stack.length === 0) {
+      this.gameOver = true
+    }
+
+    if (!this.game.pickCardAnimation && this.game.players.length > 1 && this.game.stack.length > 0) {
       this.game.currentCard = this.game.stack.pop()!;
       this.game.pickCardAnimation = true;
       this.gameService.update(this.gameId, this.game.toJson());

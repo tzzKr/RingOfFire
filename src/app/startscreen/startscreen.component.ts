@@ -22,7 +22,6 @@ export class StartscreenComponent implements OnInit {
     this.game = new Game();
     
      this.gameService.create(this.game.toJson()).then((docRef: { id: any; }) => {
-      console.log('Document written with ID: ', docRef.id);
     this.router.navigate(['/game/' + docRef.id]);
 
 
