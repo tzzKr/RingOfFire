@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { GameData, GameJson } from 'src/models/game.data.model';
+import { GameJson } from 'src/models/game.data.model';
 
 
 
